@@ -1,9 +1,10 @@
 # Load pickled data
-import pickle
+import os
+import matplotlib.image as mpimg
 from helper_functions import *
+from traffic_sign_classifier import TrafficSignClassifier
 
-
-# TODO: Fill this in based on where you saved the training and testing data
+# Fill this in based on where you saved the training and testing data
 
 training_file = 'traffic-signs-data/train.p'
 validation_file = 'traffic-signs-data/valid.p'
@@ -65,25 +66,50 @@ y_train = np.hstack((y_train, y_train_syn2))
 #visualize_data_distribution(y_train, y_valid, y_test, n_classes)
 
 
-# plt.figure(1, figsize=(2, 2))
-# plt.subplot(131), plt.imshow(X_train[0])
-# plt.axis('off')
-# mod = ndi.rotate(X_train[0], 15.0, reshape=False)
-# plt.subplot(132), plt.imshow(mod)
-# plt.axis('off')
-# zm = ndi.zoom(X_train[0], (0.75, 0.75, 1))
-# zm = np.pad(zm, ((4, 4), (4, 4), (0, 0)), 'constant')
-# plt.subplot(133), plt.imshow(zm)
-# plt.axis('off')
-# plt.waitforbuttonpress()
+tsClassifier = TrafficSignClassifier(X_train, y_train, X_valid, y_valid)
+tsClassifier.train()
+test_accuracy = tsClassifier.test(X_test, y_test)
+print("Test Accuracy = {:.3f}".format(test_accuracy))
+print()
 
-X_train = quick_normalize_img_data(X_train)  # normalize data
-X_valid = quick_normalize_img_data(X_valid)
-X_test = quick_normalize_img_data(X_test)
+# Test  online images
+dir = "traffic-signs-data/online_test_imgs/"
+if os.path.exists(dir) and os.path.isdir(dir):
+    img_files = os.listdir(dir)
+    images = []
+    for img_name in img_files:
+        if img_name.endswith('.jpg'):
+            images.append(img_name)
 
-# X_train = convert_to_grayscale(X_train)
-# X_valid = convert_to_grayscale(X_valid)
-# X_test = convert_to_grayscale(X_test)
+    cols = 4
+    rows = int(np.ceil(len(images)/cols))
+    plt.figure(0, (cols, rows))
+    k = 0
+    for i in range(rows):
+        for j in range(cols):
+            if k < len(images):
+                img_name = images[k]
+                k += 1
+                img = mpimg.imread(dir + img_name)
+                plt.subplot(rows, cols, (i * cols) + (j + 1))
+                plt.imshow(img)
+                plt.axis('off')
 
-train_and_test(X_train, y_train, X_valid, y_valid, X_test, y_test)
+    total_correct, total_imgs = 0, 0
+    for img_name in images:
+        img = mpimg.imread(dir + img_name)
+        f, e = os.path.splitext(img_name)
+        n, cls = f.split('-')
 
+        pred_cls = tsClassifier.classify(img)
+        total_correct += 1 if pred_cls[0] == int(cls) else 0
+        total_imgs += 1
+        print("Predicted: ", pred_cls, ", Real: ", cls)
+
+        top5 = tsClassifier.top_softmax_probs(img, top_num=5)
+        print("Softmax top5: ", str(top5))
+        print()
+    print("Online Image Accuracy: {:.3f}".format(total_correct/total_imgs))
+
+img_read = mpimg.imread(dir + "00000-16.jpg")
+tsClassifier.outputFeatureMap(img_read)

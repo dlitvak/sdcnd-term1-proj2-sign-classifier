@@ -106,10 +106,6 @@ def display_random_img(x, y):
             plt.axis('off')
     plt.show()
 
-def quick_normalize_img_data(x):
-    return np.ndarray.astype((x - 128.0) / 128.0, np.float32)
-
-
 def normalize_img_data(x):
     """Quick image data norm"""
     orig_shape = x.shape
@@ -127,94 +123,6 @@ def convert_to_grayscale(x):
     for i in range(len(x)):
         np.append(ret, cv.cvtColor(x[i], cv.COLOR_RGB2GRAY))
     return ret
-
-
-def train_and_test(X_train, y_train, X_valid, y_valid, X_test, y_test, grayscale=False, testOnly=False):
-    """Train the classifier and test"""
-
-    n_classes = np.max(y_train) + (1 if np.min(y_train) == 0 else 0)
-    X_train, y_train = shuffle(X_train, y_train)
-
-    EPOCHS = 20
-    BATCH_SIZE = 128
-    rate = 0.001
-    num_color_channles = 1 if grayscale else 3
-
-    x = tf.placeholder(tf.float32, (None, 32, 32, num_color_channles ))
-    y = tf.placeholder(tf.int32, (None))
-    one_hot_y = tf.one_hot(y, n_classes)
-
-    logits = lenet_extra_layers(x, n_classes, grayscale=grayscale)
-    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
-    loss_operation = tf.reduce_mean(cross_entropy)
-    optimizer = tf.train.AdamOptimizer(learning_rate=rate)
-    training_operation = optimizer.minimize(loss_operation)
-
-    correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
-    accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-    saver = tf.train.Saver()
-
-    def evaluate(X_data, y_data):
-        num_examples = len(X_data)
-        total_accuracy = 0
-        sess = tf.get_default_session()
-        for offset in range(0, num_examples, BATCH_SIZE):
-            batch_x, batch_y = X_data[offset:offset + BATCH_SIZE], y_data[offset:offset + BATCH_SIZE]
-            accuracy = sess.run(accuracy_operation, feed_dict={x: batch_x, y: batch_y})
-            total_accuracy += (accuracy * len(batch_x))
-        return total_accuracy / num_examples
-
-    if not testOnly:
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
-            num_examples = len(X_train)
-
-            print("Training...")
-            print()
-            for i in range(EPOCHS):
-                X_train, y_train = shuffle(X_train, y_train)
-                for offset in range(0, num_examples, BATCH_SIZE):
-                    end = offset + BATCH_SIZE
-                    batch_x, batch_y = X_train[offset:end], y_train[offset:end]
-                    sess.run(training_operation, feed_dict={x: batch_x, y: batch_y})
-
-                validation_accuracy = evaluate(X_valid, y_valid)
-                print("EPOCH {} ...".format(i + 1))
-                print("Validation Accuracy = {:.3f}".format(validation_accuracy))
-                print()
-
-            saver.save(sess, './lenet')
-            print("Model saved")
-
-    with tf.Session() as sess:
-        saver.restore(sess, tf.train.latest_checkpoint('.'))
-
-        acc_test_accuracy = 0
-        errorStats = np.zeros(n_classes)
-        wrongClass_idx_18 = np.zeros(n_classes)
-        for i in range(len(X_test)):
-            xi = np.reshape(X_test[i], [1, *X_test[i].shape])
-            yi = np.reshape(y_test[i], [1, *y_test[i].shape])
-            test_accuracy = evaluate(xi, yi)
-            if test_accuracy == 0:
-                errorStats[y_test[i]] += 1
-                y_corr = sess.run(tf.arg_max(one_hot_y, 1), feed_dict={x: xi, y: yi})
-                if y_corr == 18:
-                    y_wrong = sess.run(tf.arg_max(logits, 1), feed_dict={x: xi, y: yi})
-                    wrongClass_idx_18[y_wrong] += 1
-
-            acc_test_accuracy += test_accuracy
-        print("Test Accuracy = {:.3f}".format(acc_test_accuracy/len(X_test)))
-
-        # plt.figure(3, figsize=(5, 5))
-        # plt.bar(np.arange(n_classes), errorStats)
-        # plt.title('Test Error Stats')
-        #
-        # plt.figure(4, figsize=(5, 5))
-        # plt.bar(np.arange(n_classes), wrongClass_idx_18)
-        # plt.title('Test Error Stats for class 18')
-        # plt.show()
-
 
 
 def synthesize_data(x, y, n_classes):
