@@ -86,9 +86,10 @@ I looked for the test images on the web.  Unknowingly, I selected the same test 
 I decided not to redo this part due to how late I am.  I did learn a bit even then.
 
 These are 11 images I selected.  The format of the image name is _index_-_traffic sign class_.jpg 
+
 ![Vehicles over 3.5 metric tons prohibited](./traffic-signs-data/online_test_imgs/00000-16.jpg) ![Speed limit (30km/h)](./traffic-signs-data/online_test_imgs/00001-1.jpg) ![Keep right](./traffic-signs-data/online_test_imgs/00002-38.jpg) ![Turn right ahead](./traffic-signs-data/online_test_imgs/00003-33.jpg) 
 ![Right-of-way at the next intersection](./traffic-signs-data/online_test_imgs/00004-11.jpg) ![Keep right](./traffic-signs-data/online_test_imgs/00005-38.jpg) ![General caution](./traffic-signs-data/online_test_imgs/00006-18.jpg) ![Priority road](./traffic-signs-data/online_test_imgs/00007-12.jpg) 
-![Traffic signals](./traffic-signs-data/online_test_imgs/00008-25.jpg) ![Ahead only](./traffic-signs-data/online_test_imgs/00009-35.jpg) ![Priority road](./traffic-signs-data/online_test_imgs/000010-12.jpg)
+![Traffic signals](./traffic-signs-data/online_test_imgs/00008-25.jpg) ![Ahead only](./traffic-signs-data/online_test_imgs/00009-35.jpg) ![Priority road](./traffic-signs-data/online_test_imgs/00010-12.jpg)
 
 The model classified 10 out of 11 images correctly, which is 90.9%.  Statistically, the set was too small.
 I went ahead and printed out top 5 softmax probabilities in Logits layer.  Looking at 00001-1.jpg I saw:
