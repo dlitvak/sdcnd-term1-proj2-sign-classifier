@@ -92,7 +92,7 @@ These are 11 images I selected.  The format of the image name is _index_-_traffi
 ![Traffic signals](./traffic-signs-data/online_test_imgs/00008-25.jpg) ![Ahead only](./traffic-signs-data/online_test_imgs/00009-35.jpg) ![Priority road](./traffic-signs-data/online_test_imgs/00010-12.jpg)
 
 The model classified 10 out of 11 images correctly, which is 90.9%.  Statistically, the set was too small.
-I went ahead and printed out top 5 softmax probabilities in Logits layer.  Looking at 00001-1.jpg I saw:
+I went ahead and printed out top 5 softmax probabilities in Logits layer.  Looking at 00001-1.jpg ![Speed limit (30km/h)](./traffic-signs-data/online_test_imgs/00001-1.jpg) I saw:
 ```
 Softmax top5:  TopKV2(values=array([[  6.60421431e-01,   3.39578658e-01,   1.31344891e-09, 
 3.79103114e-14,   1.91815846e-14]], dtype=float32), 
