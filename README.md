@@ -107,4 +107,4 @@ Visualizing the Neural Network
 ---
 
 In cell 13, I printed out the weight images of the 4 convolution layers.  I can see that there is room for improvement, as in
-layer , Feature Maps 4, 5, 18, 21 do not carry any information.  _Dropout_ technique may have helped to activate those layers.
+layer , Feature Maps 4, 5, 18, 21 do not carry any information.  _Dropout_ technique would have possibly helped to activate those layers.
