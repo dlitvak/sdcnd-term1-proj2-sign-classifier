@@ -12409,7 +12409,7 @@ Test Accuracy = 0.957
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Run the predictions here and use the model to output the prediction for each image.</span>
@@ -12426,6 +12426,11 @@ Test Accuracy = 0.957
     <span class="n">total_correct</span> <span class="o">+=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">pred_cls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">total_imgs</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predicted: &quot;</span><span class="p">,</span> <span class="n">pred_cls</span><span class="p">,</span> <span class="s2">&quot;, Real: &quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span> <span class="n">img_name</span><span class="p">)</span>
+
+    <span class="n">top5</span> <span class="o">=</span> <span class="n">tsClassifier</span><span class="o">.</span><span class="n">top_softmax_probs</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">top_num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Softmax top5: &quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">top5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -12445,25 +12450,67 @@ Test Accuracy = 0.957
 <pre>INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [16] , Real:  16
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   4.62876374e-18,   9.11230322e-22,
+          3.27879950e-22,   3.01657608e-22]], dtype=float32), indices=array([[16,  7,  5,  8, 40]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [12] , Real:  12
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  9.99999762e-01,   2.77298739e-07,   2.21674212e-09,
+          3.18451737e-10,   2.31938219e-11]], dtype=float32), indices=array([[12, 14, 29, 42,  5]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [38] , Real:  38
+INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[ 1.,  0.,  0.,  0.,  0.]], dtype=float32), indices=array([[38,  0,  1,  2,  3]], dtype=int32))
+
 INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [35] , Real:  35
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   6.67362442e-22,   5.51394032e-22,
+          1.29697770e-22,   8.77183665e-24]], dtype=float32), indices=array([[35, 36, 33, 37,  3]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [11] , Real:  11
+INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   3.79496470e-08,   1.32122872e-12,
+          1.23619376e-13,   1.23430901e-13]], dtype=float32), indices=array([[11, 30, 21, 16,  7]], dtype=int32))
+
 INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [33] , Real:  33
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   2.33102740e-31,   1.50030107e-31,
+          4.94352875e-38,   0.00000000e+00]], dtype=float32), indices=array([[33, 35, 39, 36,  0]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [25] , Real:  25
+INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   1.12595405e-20,   1.76468210e-22,
+          6.10134685e-23,   2.25503905e-23]], dtype=float32), indices=array([[25, 11, 18,  2,  1]], dtype=int32))
+
 INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [18] , Real:  18
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   7.33830695e-20,   3.18355484e-20,
+          4.45416686e-21,   4.23756590e-22]], dtype=float32), indices=array([[18, 27, 11, 26,  0]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [2] , Real:  1
+INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  6.60421431e-01,   3.39578658e-01,   1.31344891e-09,
+          3.79103114e-14,   1.91815846e-14]], dtype=float32), indices=array([[2, 1, 5, 3, 6]], dtype=int32))
+
 INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [38] , Real:  38
 INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[ 1.,  0.,  0.,  0.,  0.]], dtype=float32), indices=array([[38,  0,  1,  2,  3]], dtype=int32))
+
+INFO:tensorflow:Restoring parameters from ./lenet
 Predicted:  [12] , Real:  12
+INFO:tensorflow:Restoring parameters from ./lenet
+Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   3.26644956e-09,   1.30184336e-10,
+          4.95249640e-11,   1.43715474e-11]], dtype=float32), indices=array([[12,  7, 14, 29, 15]], dtype=int32))
+
 </pre>
 </div>
 </div>
@@ -12559,79 +12606,15 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Print out the top five softmax probabilities for the predictions on the German traffic sign images found on the web. </span>
 <span class="c1">### Feel free to use as many code cells as needed.</span>
-<span class="k">for</span> <span class="n">img_name</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span> <span class="n">img_name</span><span class="p">)</span>
-
-    <span class="n">top5</span> <span class="o">=</span> <span class="n">tsClassifier</span><span class="o">.</span><span class="n">top_softmax_probs</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">top_num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Softmax top5: &quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">top5</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">()</span>
+<span class="c1">## PRINTED ABOVE</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   4.62876374e-18,   9.11230322e-22,
-          3.27879950e-22,   3.01657608e-22]], dtype=float32), indices=array([[16,  7,  5,  8, 40]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  9.99999762e-01,   2.77298739e-07,   2.21674212e-09,
-          3.18451737e-10,   2.31938219e-11]], dtype=float32), indices=array([[12, 14, 29, 42,  5]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[ 1.,  0.,  0.,  0.,  0.]], dtype=float32), indices=array([[38,  0,  1,  2,  3]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   6.67362442e-22,   5.51394032e-22,
-          1.29697770e-22,   8.77183665e-24]], dtype=float32), indices=array([[35, 36, 33, 37,  3]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   3.79496470e-08,   1.32122872e-12,
-          1.23619376e-13,   1.23430901e-13]], dtype=float32), indices=array([[11, 30, 21, 16,  7]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   2.33102740e-31,   1.50030107e-31,
-          4.94352875e-38,   0.00000000e+00]], dtype=float32), indices=array([[33, 35, 39, 36,  0]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   1.12595405e-20,   1.76468210e-22,
-          6.10134685e-23,   2.25503905e-23]], dtype=float32), indices=array([[25, 11, 18,  2,  1]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   7.33830695e-20,   3.18355484e-20,
-          4.45416686e-21,   4.23756590e-22]], dtype=float32), indices=array([[18, 27, 11, 26,  0]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  6.60421431e-01,   3.39578658e-01,   1.31344891e-09,
-          3.79103114e-14,   1.91815846e-14]], dtype=float32), indices=array([[2, 1, 5, 3, 6]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[ 1.,  0.,  0.,  0.,  0.]], dtype=float32), indices=array([[38,  0,  1,  2,  3]], dtype=int32))
-
-INFO:tensorflow:Restoring parameters from ./lenet
-Softmax top5:  TopKV2(values=array([[  1.00000000e+00,   3.26644956e-09,   1.30184336e-10,
-          4.95249640e-11,   1.43715474e-11]], dtype=float32), indices=array([[12,  7, 14, 29, 15]], dtype=int32))
-
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
