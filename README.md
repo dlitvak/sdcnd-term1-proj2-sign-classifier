@@ -99,7 +99,7 @@ Softmax top5:  TopKV2(values=array([[  6.60421431e-01,   3.39578658e-01,   1.313
 indices=array([[2, 1, 5, 3, 6]], dtype=int32))
 ```
           
-Unlike the other correct predictions (see cell 14), the classifier was uncertain of the correct result in this case.
+Unlike the other correct predictions (see cell 14 in Notebook), the classifier was uncertain of the correct result in this case.
 \#2 Speed limit (30km/h) has the probability 66% and \#1 (correct) Speed limit (50km/h) has probability at 33.95%.
 The uncertainty in this case due to its inability to distionguish between 3 and 5 in the sign. 
 
