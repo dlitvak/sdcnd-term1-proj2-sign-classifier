@@ -10,7 +10,7 @@ Unfortunately, those images turned out to be from the same dataset as Udacity, w
 
 While working on the project I wrote it up in Python.  The code is in `main.py` which depends on `traffic_client_classifier.py` and `lenet5.py`.
 After completing the project, I transferred the code to the [notebook](./Traffic_Sign_Classifier.ipynb), which you can find at the root of this repository.
-I also exported the result of running the notebook as [report.html](./html_output/report.html).  Given how late I am and being pressed for time, I have decided not to re-run the
+I also exported the result of running the notebook as [Traffic_Sign_Classifier.html](./Traffic_Sign_Classifier.html).  Given how late I am and being pressed for time, I have decided not to re-run the
 the training in the notebook.  The notebook was run on the *lenet* model I have saved while training in python shell.
 
 This README is the required project writeup.
