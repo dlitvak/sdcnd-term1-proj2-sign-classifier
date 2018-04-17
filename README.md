@@ -71,9 +71,76 @@ EPOCHS = 20
 BATCH_SIZE = 128
 learning_rate = 0.001
         
-The new architecture brought the validation set accuracy to 97% and the test set accuracy to 96%.  This result 
+The new architecture brought the validation set accuracy to 96% and the test set accuracy to 95.5%.  This result 
 appears to be due to the increased network complexity allowing it to store more non-linear information about the 
 traffic signs in the training set.
+
+Here is the printout from training:
+```
+EPOCH 1 ...
+Validation Accuracy = 0.861
+
+EPOCH 2 ...
+Validation Accuracy = 0.891
+
+EPOCH 3 ...
+Validation Accuracy = 0.927
+
+EPOCH 4 ...
+Validation Accuracy = 0.924
+
+EPOCH 5 ...
+Validation Accuracy = 0.944
+
+EPOCH 6 ...
+Validation Accuracy = 0.943
+
+EPOCH 7 ...
+Validation Accuracy = 0.945
+
+EPOCH 8 ...
+Validation Accuracy = 0.951
+
+EPOCH 9 ...
+Validation Accuracy = 0.952
+
+EPOCH 10 ...
+Validation Accuracy = 0.943
+
+EPOCH 11 ...
+Validation Accuracy = 0.943
+
+EPOCH 12 ...
+Validation Accuracy = 0.964
+
+EPOCH 13 ...
+Validation Accuracy = 0.970
+
+EPOCH 14 ...
+Validation Accuracy = 0.960
+
+EPOCH 15 ...
+Validation Accuracy = 0.952
+
+EPOCH 16 ...
+Validation Accuracy = 0.957
+
+EPOCH 17 ...
+Validation Accuracy = 0.957
+
+EPOCH 18 ...
+Validation Accuracy = 0.968
+
+EPOCH 19 ...
+Validation Accuracy = 0.966
+
+EPOCH 20 ...
+Validation Accuracy = 0.958
+
+Model saved
+INFO:tensorflow:Restoring parameters from ./lenet
+Test Accuracy = 0.955
+```
 
 In the retrospect, I did waste a bit of time to arrive to this point.  I should have printed out the training 
 set accuracy versus the validation set one.
